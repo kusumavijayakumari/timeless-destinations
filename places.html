@@ -154,18 +154,15 @@ footer{
       </div>
     </div>
     <div class="card">
-      <img src="images/ancient.jpg">
-      <div class="card-body">
-        <h3 data-lang="mountain">Famous Places</h3>
-        <button class="btn btn-view" data-lang="view"
-          onclick="window.location.href='place-details.html?place=ancient-famous'">
-          View Details
-        </button>
-      </div>
-    </div>
-
-
-
+  <img src="images/ancient.jpg" alt="Ancient Famous Places">
+  <div class="card-body">
+    <h3 data-lang="ancient">Ancient Famous Places</h3>
+    <button class="btn btn-view" data-lang="view"
+      onclick="window.location.href='place-details.html?place=ancient'">
+      View Details
+    </button>
+  </div>
+</div>
   </div>
 </div>
 
@@ -180,6 +177,7 @@ const translations = {
     mountain:"Mountain Trek",
     waterfall:"Waterfalls",
     temple:"Temple Packages",
+    ancient = "Ancient Famous Places",
     view:"View Details",
     footer:"© 2026 Timeless Destinations"
   },
@@ -189,6 +187,7 @@ const translations = {
     mountain:"पर्वतीय ट्रेक",
     waterfall:"झरने",
     temple:"मंदिर पैकेज",
+    ancient = "प्राचीन प्रसिद्ध स्थल",
     view:"विवरण देखें",
     footer:"© 2026 Timeless Destinations"
   },
@@ -198,6 +197,7 @@ const translations = {
     mountain:"పర్వత ట్రెక్",
     waterfall:"జలపాతాలు",
     temple:"ఆలయ ప్యాకేజీలు",
+    ancient = "ప్రాచీన ప్రసిద్ధ ప్రదేశాలు",
     view:"వివరాలు చూడండి",
     footer:"© 2026 Timeless Destinations"
   }
@@ -223,5 +223,6 @@ applyLang(savedLang);
 
 </body>
 </html>
+
 
 
