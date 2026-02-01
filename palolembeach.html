@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unseen Corners – Palolem Beach</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      background:#0f3d3e;
+      color:#fff;
+    }
+
+    header{
+      position:fixed;
+      top:0;
+      width:100%;
+      background:#004d40;
+      padding:15px 30px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      z-index:1000;
+    }
+
+    header h1{
+      color:#ffca28;
+      font-size:22px;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      margin-left:20px;
+      font-weight:bold;
+    }
+
+    nav a:hover{
+      text-decoration:underline;
+    }
+
+    .hero{
+      height:100vh;
+      background:url("https://www.tourmyindia.com/states/goa/image/palolem-beach-banner.webp") center/cover no-repeat;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:20px;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.6);
+    }
+
+    .hero-content{
+      position:relative;
+      max-width:800px;
+    }
+
+    .hero-content h2{
+      color:#ffca28;
+      font-size:34px;
+      margin-bottom:15px;
+    }
+
+    .hero-content p{
+      font-size:18px;
+      line-height:1.6;
+    }
+
+    .section{
+      padding:50px 20px;
+      max-width:1000px;
+      margin:auto;
+    }
+
+    .section h2{
+      text-align:center;
+      color:#ffca28;
+      margin-bottom:20px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:15px;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.15);
+      padding:15px;
+      border-radius:8px;
+    }
+
+    .view360 iframe{
+      width:100%;
+      height:450px;
+      border:none;
+      border-radius:12px;
+    }
+    /* ---------- ITINERARY ---------- */
+.itinerary{
+  max-width:900px;
+  margin:50px auto;
+  padding:25px;
+  background:#f9f9f9;
+  border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.itinerary h2{
+  text-align:center;
+  color:#004d40;
+  margin-bottom:20px;
+}
+
+.itinerary form{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  margin-bottom:20px;
+}
+
+.itinerary input,
+.itinerary textarea{
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:5px;
+  max-width:250px;
+  width:100%;
+}
+
+.itinerary button{
+  background:#004d40;
+  color:white;
+  padding:10px 20px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.itinerary button.clear{
+  background:#c0392b;
+}
+
+.itinerary-item{
+  background:white;
+  padding:15px;
+  border-left:4px solid #ffeb3b;
+  margin-bottom:10px;
+  border-radius:5px;
+}
+
+ footer{
+  background:#004d40;
+  text-align:center;
+  padding:15px;
+  margin-top:40px;
+}
+
+@media(max-width:768px){
+  .hero-content h2{font-size:26px;}
+  .hero-content p{font-size:16px;}
+  .view360 iframe{height:300px;}
+}
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Timeless Destinations</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h2>🌴 Palolem Beach, Goa</h2>
+    <p>
+      Palolem Beach is one of South Goa’s most peaceful beaches, famous for
+      its crescent shape, calm waters, coconut trees, and relaxing vibe.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>🌅 Highlights</h2>
+  <div class="cards">
+    <div class="card">Crescent-shaped beach with golden sand</div>
+    <div class="card">Kayaking and dolphin watching</div>
+    <div class="card">Silent discos & beach huts</div>
+    <div class="card">Best time: Nov – Feb</div>
+  </div>
+</section>
+
+<section class="section view360">
+  <h2>🌐 360° Virtual View</h2>
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!4v1760026484431!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRGVrNnZyN2dF!2m2!1d15.00996481329184!2d74.0232186047796!3f199.15!4f0!5f0.78"
+    loading="lazy"
+    allowfullscreen>
+  </iframe>
+</section>
+<section class="itinerary">
+  <h2>🧭 Plan Your Trip</h2>
+
+  <form id="itinerary-form">
+    <input type="date" id="date" required>
+    <input type="text" id="activity" placeholder="Activity" required>
+    <textarea id="notes" placeholder="Notes (optional)"></textarea>
+    <button type="submit">Add</button>
+    <button type="button" class="clear" onclick="clearItinerary()">Clear</button>
+  </form>
+
+  <div id="itinerary-list"></div>
+</section>
+
+<footer>
+  © 2026 Timeless Destinations | All Rights Reserved
+</footer>
+
+<script>
+const form = document.getElementById("itinerary-form");
+const list = document.getElementById("itinerary-list");
+
+const dateInput = document.getElementById("date");
+const activityInput = document.getElementById("activity");
+const notesInput = document.getElementById("notes");
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const date = dateInput.value;
+  const activity = activityInput.value;
+  const notes = notesInput.value;
+
+  if(!date || !activity){
+    alert("Please fill required fields");
+    return;
+  }
+
+  const div = document.createElement("div");
+  div.className = "itinerary-item";
+  div.innerHTML = `
+    <strong>${date}</strong><br>
+    ${activity}<br>
+    <small>${notes}</small>
+  `;
+
+  list.appendChild(div);
+  form.reset();
+});
+
+function clearItinerary(){
+  list.innerHTML = "";
+}
+</script>
+
+
+</body>
+</html>
