@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About | Timeless Destinations</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI,sans-serif;
+}
+
+body{
+  background:#e9fff4;
+}
+
+/* HEADER */
+header{
+  background:linear-gradient(90deg,#0f9b6c,#38ef7d);
+  padding:20px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:white;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:20px;
+  font-weight:500;
+}
+
+nav a:hover{
+  text-decoration:underline;
+}
+
+.nav-btn{
+  background:#ffeb3b;
+  color:#004d40;
+  font-weight:bold;
+  padding:8px 16px;
+  border:none;
+  border-radius:6px;
+  margin-left:20px;
+  cursor:pointer;
+}
+
+.nav-btn:hover{
+  background:#fff176;
+}
+
+.lang-select{
+  margin-left:20px;
+  padding:6px 10px;
+  border-radius:5px;
+  border:none;
+  cursor:pointer;
+}
+
+/* CONTENT */
+section{
+  text-align:center;
+  padding:80px 40px;
+}
+
+section h2{
+  color:#0f9b6c;
+  font-size:36px;
+  margin-bottom:20px;
+}
+
+section p{
+  font-size:18px;
+  max-width:800px;
+  margin:auto;
+  line-height:1.6;
+}
+
+/* FOOTER */
+footer{
+  background:#0f9b6c;
+  color:white;
+  text-align:center;
+  padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1 data-lang="site">Timeless Destinations</h1>
+  <nav>
+    <a href="index.html" data-lang="home">Home</a>
+    <a href="about.html" data-lang="about">About</a>
+    <a href="contact.html" data-lang="contact">Contact</a>
+    <a href="chatbot.html" data-lang="chat">Chat Bot</a>
+
+    <button class="nav-btn" onclick="location.href='booking.html'" data-lang="book">
+      Book Now
+    </button>
+
+    <select class="lang-select" id="language-select">
+      <option value="en">English</option>
+      <option value="hi">हिन्दी</option>
+      <option value="te">తెలుగు</option>
+    </select>
+  </nav>
+</header>
+
+<section>
+  <h2 data-lang="title">About Us</h2>
+  <p data-lang="desc">
+    Timeless Destinations helps travelers discover unseen corners and famous places of the world,
+    focusing on nature, culture and unforgettable travel memories.
+  </p>
+</section>
+
+<footer data-lang="footer">
+  © 2026 Timeless Destinations
+</footer>
+
+<!-- ✅ LANGUAGE SCRIPT -->
+<script>
+const translations = {
+  en:{
+    site:"Timeless Destinations",
+    home:"Home",
+    about:"About",
+    contact:"Contact",
+    chat:"Chat Bot",
+    book:"Book Now",
+    title:"About Us",
+    desc:"Timeless Destinations helps travelers discover unseen corners and famous places of the world, focusing on nature, culture and unforgettable travel memories.",
+    footer:"© 2026 Timeless Destinations"
+  },
+  hi:{
+    site:"टाइमलेस डेस्टिनेशन्स",
+    home:"होम",
+    about:"हमारे बारे में",
+    contact:"संपर्क करें",
+    chat:"चैट बॉट",
+    book:"अभी बुक करें",
+    title:"हमारे बारे में",
+    desc:"Timeless Destinations यात्रियों को दुनिया के प्रसिद्ध और अनदेखे स्थलों की खोज में मदद करता है, जहाँ प्रकृति, संस्कृति और यादगार यात्राएँ शामिल हैं।",
+    footer:"© 2026 Timeless Destinations"
+  },
+  te:{
+    site:"టైమ్‌లెస్ డెస్టినేషన్స్",
+    home:"హోమ్",
+    about:"మా గురించి",
+    contact:"సంప్రదించండి",
+    chat:"చాట్ బాట్",
+    book:"ఇప్పుడే బుక్ చేయండి",
+    title:"మా గురించి",
+    desc:"Timeless Destinations ప్రయాణికులకు ప్రకృతి, సంస్కృతి మరియు మరిచిపోలేని అనుభవాలతో ప్రసిద్ధ మరియు దాగి ఉన్న ప్రదేశాలను కనుగొనడంలో సహాయపడుతుంది.",
+    footer:"© 2026 Timeless Destinations"
+  }
+};
+
+const selector = document.getElementById("language-select");
+
+function applyLang(lang){
+  document.querySelectorAll("[data-lang]").forEach(el=>{
+    el.innerText = translations[lang][el.dataset.lang];
+  });
+}
+
+selector.addEventListener("change",()=>{
+  localStorage.setItem("language", selector.value);
+  applyLang(selector.value);
+});
+
+const savedLang = localStorage.getItem("language") || "en";
+selector.value = savedLang;
+applyLang(savedLang);
+</script>
+
+</body>
+</html>

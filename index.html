@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Timeless Destinations</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI,sans-serif;
+}
+
+body{
+  background:#f4fff7;
+}
+
+/* HEADER */
+header{
+  background:linear-gradient(90deg,#0f9b6c,#38ef7d);
+  padding:20px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:white;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:20px;
+  font-weight:500;
+}
+
+nav a:hover{
+  text-decoration:underline;
+}
+
+.nav-btn{
+  background:#ffeb3b;
+  color:#004d40;
+  font-weight:bold;
+  padding:8px 16px;
+  border:none;
+  border-radius:6px;
+  margin-left:20px;
+  cursor:pointer;
+}
+
+.nav-btn:hover{
+  background:#fff176;
+}
+
+.lang-select{
+  margin-left:20px;
+  padding:6px 10px;
+  border-radius:5px;
+  border:none;
+  cursor:pointer;
+}
+
+/* HERO SECTION */
+.hero{
+  height:90vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+}
+
+.hero h2{
+  font-size:48px;
+  margin-bottom:20px;
+}
+
+.hero p{
+  font-size:20px;
+  margin-bottom:30px;
+}
+
+.hero button{
+  padding:14px 35px;
+  font-size:17px;
+  border:none;
+  border-radius:30px;
+  background:#0f9b6c;
+  color:white;
+  cursor:pointer;
+}
+
+.hero button:hover{
+  background:#0b7e56;
+}
+
+footer{
+  background:#0f9b6c;
+  color:white;
+  text-align:center;
+  padding:20px;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+  <h1 data-lang="siteTitle">Timeless Destinations</h1>
+ <nav>
+    <a href="index.html" data-lang="home">Home</a>
+    <a href="about.html" data-lang="about">About</a>
+    <a href="contact.html" data-lang="contact">Contact</a>
+    <a href="chatbot.html" data-lang="chatbot">Chat Bot</a>
+    <button class="nav-btn" onclick="location.href='booking.html'" data-lang="book">Book Now</button>
+
+    <select class="lang-select" id="language-select">
+      <option value="en">English</option>
+      <option value="hi">हिन्दी</option>
+      <option value="te">తెలుగు</option>
+    </select>
+  </nav>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div>
+    <h2 data-lang="heroTitle">Explore Timeless Destinations</h2>
+    <p data-lang="heroDesc">Discover unseen places & unforgettable journeys</p>
+    <button onclick="location.href='places.html'" data-lang="explore">Explore Now</button>
+  </div>
+</section>
+
+<footer data-lang="footer">
+  © 2026 Timeless Destinations
+</footer>
+
+<!-- ✅ MULTI LANGUAGE SCRIPT (ADD AT BOTTOM) -->
+<script>
+const translations = {
+  en: {
+    siteTitle: "Timeless Destinations",
+    home: "Home",
+    about: "About",
+    contact: "Contact",
+    chatbot: "Chat Bot",
+    book: "Book Now",
+    heroTitle: "Explore Timeless Destinations",
+    heroDesc: "Discover unseen places & unforgettable journeys",
+    explore: "Explore Now",
+    footer: "© 2026 Timeless Destinations"
+  },
+  hi: {
+    siteTitle: "कालातीत गंतव्य",
+    home: "होम",
+    about: "जानकारी",
+    contact: "संपर्क",
+    chatbot: "चैट बॉट",
+    book: "अभी बुक करें",
+    heroTitle: "कालातीत गंतव्यों की खोज करें",
+    heroDesc: "अनदेखी जगहें और यादगार यात्राएँ खोजें",
+    explore: "अभी खोजें",
+    footer: "© 2026 कालातीत गंतव्य"
+  },
+  te: {
+    siteTitle: "శాశ్వత గమ్యస్థానాలు",
+    home: "హోమ్",
+    about: "గురించి",
+    contact: "సంప్రదించండి",
+    chatbot: "చాట్ బాట్",
+    book: "ఇప్పుడు బుక్ చేయండి",
+    heroTitle: "శాశ్వత గమ్యస్థానాలను అన్వేషించండి",
+    heroDesc: "చూడని ప్రదేశాలు & మర్చిపోలేని ప్రయాణాలు",
+    explore: "ఇప్పుడు అన్వేషించండి",
+    footer: "© 2026 శాశ్వత గమ్యస్థానాలు"
+  }
+};
+
+const selector = document.getElementById("language-select");
+
+selector.addEventListener("change", () => {
+  const lang = selector.value;
+  localStorage.setItem("language", lang);
+  applyLanguage(lang);
+});
+
+function applyLanguage(lang){
+  document.querySelectorAll("[data-lang]").forEach(el=>{
+    const key = el.getAttribute("data-lang");
+    if(translations[lang][key]){
+      el.innerText = translations[lang][key];
+    }
+  });
+}
+
+// Load saved language
+const savedLang = localStorage.getItem("language") || "en";
+selector.value = savedLang;
+applyLanguage(savedLang);
+</script>
+
+</body>
+</html>

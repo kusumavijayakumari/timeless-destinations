@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>India Tourism Chatbot</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#6c7b95,#8a9bb5);
+}
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+.header{
+    background:#fff;
+    border-radius:12px;
+    padding:20px;
+    text-align:center;
+}
+.chatbox{
+    margin-top:20px;
+    background:#fff;
+    border-radius:12px;
+    display:flex;
+    flex-direction:column;
+    height:500px;
+}
+.messages{
+    flex:1;
+    padding:15px;
+    overflow-y:auto;
+}
+.msg{
+    margin-bottom:12px;
+    display:flex;
+}
+.bot{justify-content:flex-start;}
+.user{justify-content:flex-end;}
+
+.bubble{
+    max-width:70%;
+    padding:12px 15px;
+    border-radius:15px;
+}
+.bot .bubble{
+    background:#e9ecef;
+}
+.user .bubble{
+    background:#6c7b95;
+    color:white;
+}
+.input-area{
+    display:flex;
+    padding:10px;
+    border-top:1px solid #ccc;
+}
+input{
+    flex:1;
+    padding:10px;
+    border-radius:20px;
+    border:1px solid #ccc;
+    outline:none;
+}
+button{
+    margin-left:10px;
+    padding:10px 18px;
+    border:none;
+    border-radius:20px;
+    background:#495057;
+    color:white;
+    cursor:pointer;
+}
+button:hover{background:#343a40;}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🇮🇳 Incredible India Tourism Chatbot</h1>
+        <p>Ask about temples, beaches, caves, waterfalls & hill stations</p>
+    </div>
+
+    <div class="chatbox">
+        <div class="messages" id="messages">
+            <div class="msg bot">
+                <div class="bubble">
+                    Namaste 🙏 Ask me about Charminar, Tirupati, Araku Valley, Jog Falls, Goa beaches and more!
+                </div>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Type a place name...">
+            <button onclick="send()">Send</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const data = {
+    "charminar":"Charminar is a historic monument in Hyderabad built in 1591.",
+    "tirupati":"Tirupati Balaji Temple is one of the richest temples in the world.",
+    "goa":"Goa is famous for beaches, nightlife and Portuguese heritage.",
+    "araku":"Araku Valley is a hill station in Andhra Pradesh known for coffee plantations.",
+    "jog falls":"Jog Falls in Karnataka is India’s second-highest plunge waterfall.",
+    "ajanta":"Ajanta Caves are ancient Buddhist caves in Maharashtra.",
+    "ellora":"Ellora Caves showcase Hindu, Buddhist and Jain architecture.",
+    "gandikota":"Gandikota is called the Grand Canyon of India.",
+    "kerala":"Kerala is famous for backwaters, hill stations and Ayurveda."
+};
+
+function send(){
+    const input = document.getElementById("userInput");
+    const text = input.value.trim().toLowerCase();
+    if(text==="") return;
+
+    addMessage(text,"user");
+    input.value="";
+
+    setTimeout(()=>{
+        let reply="Sorry 😅 I don’t have info on that yet.";
+        for(let key in data){
+            if(text.includes(key)){
+                reply=data[key];
+                break;
+            }
+        }
+        addMessage(reply,"bot");
+    },600);
+}
+
+function addMessage(text,type){
+    const messages=document.getElementById("messages");
+    const msg=document.createElement("div");
+    msg.className="msg "+type;
+    msg.innerHTML=`<div class="bubble">${text}</div>`;
+    messages.appendChild(msg);
+    messages.scrollTop=messages.scrollHeight;
+}
+</script>
+</body>
+</html>

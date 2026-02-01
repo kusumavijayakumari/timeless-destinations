@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Temple Booking</title>
+<style>
+body{margin:0;font-family:Segoe UI,sans-serif;background:#e8f5e9;}
+.container{
+max-width:500px;margin:50px auto;background:#fff;
+padding:30px;border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,.2);
+}
+h2{text-align:center;color:#004d40;}
+input,select,button{
+width:100%;padding:12px;margin:10px 0;
+border-radius:6px;border:1px solid #ccc;
+}
+button{
+background:#004d40;color:#fff;border:none;font-weight:600;
+cursor:pointer;
+}
+#success{color:green;text-align:center;display:none;}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>Temple Darshan Booking</h2>
+
+<form id="bookingForm">
+<input type="text" id="name" placeholder="Devotee Name" required>
+<input type="number" placeholder="Number of Persons" required>
+
+<select required>
+<option value="">Select Darshan Slot</option>
+<option>Early Morning (3 AM – 6 AM)</option>
+<option>Morning (6 AM – 12 PM)</option>
+<option>Evening (4 PM – 8 PM)</option>
+<option>Night (8 PM – 11 PM)</option>
+</select>
+
+<input type="date" required>
+<button type="submit">Confirm Booking</button>
+</form>
+
+<p id="success">✅ Booking Confirmed!</p>
+</div>
+
+<script>
+document.getElementById("bookingForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ document.getElementById("success").style.display="block";
+ e.target.reset();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Jagannath Temple</title>
+<style>
+body{margin:0;font-family:Segoe UI,sans-serif;background:#f5f7fb;}
+/* ---------- ITINERARY ---------- */
+.itinerary{
+  max-width:900px;
+  margin:50px auto;
+  padding:25px;
+  background:#f9f9f9;
+  border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.itinerary h2{
+  text-align:center;
+  color:#004d40;
+  margin-bottom:20px;
+}
+
+.itinerary form{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  margin-bottom:20px;
+}
+
+.itinerary input,
+.itinerary textarea{
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:5px;
+  max-width:250px;
+  width:100%;
+}
+
+.itinerary button{
+  background:#004d40;
+  color:white;
+  padding:10px 20px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.itinerary button.clear{
+  background:#c0392b;
+}
+
+.itinerary-item{
+  background:white;
+  padding:15px;
+  border-left:4px solid #ffeb3b;
+  margin-bottom:10px;
+  border-radius:5px;
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  background:#004d40;
+  color:white;
+  margin-top:50px;
+}
+
+@media(max-width:768px){
+  .hero-content h2{font-size:26px;}
+  .hero-content p{font-size:16px;}
+  .view360 iframe{height:300px;}
+}
+.hero{
+  height:100vh;
+  background:url("https://images.unsplash.com/photo-1621860291614-3f1c2f9e6f0d")
+  no-repeat center/cover;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.55);
+}
+.hero h1{color:white;font-size:48px;position:relative;}
+.container{width:85%;margin:auto;padding:40px 0;}
+.box{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,.1);
+}
+iframe{
+  width:100%;
+  height:420px;
+  border:none;
+  border-radius:12px;
+  margin-top:20px;
+}
+.btn{padding:12px 20px;background:#8e0000;color:#fff;border:none;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Jagannath Temple, Puri</h1>
+</div>
+
+<div class="container">
+<p>
+Jagannath Temple is one of the Char Dham pilgrimage sites and is famous
+for the annual Rath Yatra festival.
+</p>
+
+<div class="box">
+📍 <b>Location:</b> Puri, Odisha<br><br>
+🙏 <b>Deity:</b> Lord Jagannath<br><br>
+📅 <b>Best Time:</b> October – March<br><br>
+⭐ <b>Famous For:</b> Rath Yatra
+</div>
+<button class="btn" onclick="location.href='temple-booking.html?temple=meenakshi'">
+Book Darshan
+</button>
+
+<h2>🌐 360° View</h2>
+<iframe src="https://www.google.com/maps/embed?pb=!4v1699261201234!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQnZ1NnRxUFE!2m2!1d19.804547!2d85.817187!3f250!4f10!5f0.78"></iframe>
+</div>
+<section class="itinerary">
+  <h2>🧭 Plan Your Trip</h2>
+
+  <form id="itinerary-form">
+    <input type="date" id="date" required>
+    <input type="text" id="activity" placeholder="Activity" required>
+    <textarea id="notes" placeholder="Notes (optional)"></textarea>
+    <button type="submit">Add</button>
+    <button type="button" class="clear" onclick="clearItinerary()">Clear</button>
+  </form>
+
+  <div id="itinerary-list"></div>
+</section>
+
+<footer>
+  © 2026 Timeless Destinations | All Rights Reserved
+</footer>
+
+<script>
+const form = document.getElementById("itinerary-form");
+const list = document.getElementById("itinerary-list");
+
+const dateInput = document.getElementById("date");
+const activityInput = document.getElementById("activity");
+const notesInput = document.getElementById("notes");
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const date = dateInput.value;
+  const activity = activityInput.value;
+  const notes = notesInput.value;
+
+  if(!date || !activity){
+    alert("Please fill required fields");
+    return;
+  }
+
+  const div = document.createElement("div");
+  div.className = "itinerary-item";
+  div.innerHTML = `
+    <strong>${date}</strong><br>
+    ${activity}<br>
+    <small>${notes}</small>
+  `;
+
+  list.appendChild(div);
+  form.reset();
+});
+
+function clearItinerary(){
+  list.innerHTML = "";
+}
+</script>
+</body>
+</html>

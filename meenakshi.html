@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title data-lang-title="pageTitle">Meenakshi Temple</title>
+
+<style>
+body{margin:0;font-family:Segoe UI,sans-serif;background:#f5f7fb;}
+/* ---------- ITINERARY ---------- */
+.itinerary{
+  max-width:900px;
+  margin:50px auto;
+  padding:25px;
+  background:#f9f9f9;
+  border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.itinerary h2{
+  text-align:center;
+  color:#004d40;
+  margin-bottom:20px;
+}
+
+.itinerary form{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  margin-bottom:20px;
+}
+
+.itinerary input,
+.itinerary textarea{
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:5px;
+  max-width:250px;
+  width:100%;
+}
+
+.itinerary button{
+  background:#004d40;
+  color:white;
+  padding:10px 20px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.itinerary button.clear{
+  background:#c0392b;
+}
+
+.itinerary-item{
+  background:white;
+  padding:15px;
+  border-left:4px solid #ffeb3b;
+  margin-bottom:10px;
+  border-radius:5px;
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  background:#004d40;
+  color:white;
+  margin-top:50px;
+}
+
+@media(max-width:768px){
+  .hero-content h2{font-size:26px;}
+  .hero-content p{font-size:16px;}
+  .view360 iframe{height:300px;}
+}
+.hero{
+ height:100vh;
+ background:url("https://images.unsplash.com/photo-1587300003388-59208cc962cb")
+ no-repeat center/cover;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ position:relative;
+}
+
+.hero::before{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:rgba(0,0,0,.5);
+}
+
+.hero h1{
+ color:#fff;
+ font-size:48px;
+ position:relative;
+}
+
+.lang-select{
+ position:absolute;
+ top:20px;
+ right:20px;
+ padding:8px 12px;
+ border-radius:6px;
+ border:none;
+ cursor:pointer;
+ z-index:2;
+}
+
+.container{
+ width:85%;
+ margin:auto;
+ padding:40px 0;
+}
+
+.box{
+ background:#fff;
+ padding:20px;
+ border-radius:12px;
+ box-shadow:0 8px 20px rgba(0,0,0,.1);
+}
+
+iframe{
+ width:100%;
+ height:420px;
+ border:none;
+ border-radius:12px;
+ margin-top:20px;
+}
+
+.btn{
+ padding:12px 20px;
+ background:#4a148c;
+ color:#fff;
+ border:none;
+ border-radius:6px;
+ cursor:pointer;
+ margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<select class="lang-select" id="language-select">
+  <option value="en">English</option>
+  <option value="hi">हिन्दी</option>
+  <option value="te">తెలుగు</option>
+</select>
+
+<div class="hero">
+  <h1 data-lang="title">Meenakshi Temple</h1>
+</div>
+
+<div class="container">
+
+<p data-lang="desc">
+Meenakshi Temple in Madurai is famous for its colorful gopurams
+and Dravidian architecture.
+</p>
+
+<div class="box">
+📍 <b data-lang="locationLabel">Location:</b>
+<span data-lang="location">Madurai, Tamil Nadu</span><br><br>
+
+🙏 <b data-lang="deityLabel">Deity:</b>
+<span data-lang="deity">Goddess Meenakshi & Lord Sundareswarar</span><br><br>
+
+⏰ <b data-lang="darshanLabel">Darshan:</b>
+<span data-lang="darshan">5 AM – 10 PM</span><br><br>
+
+⭐ <b data-lang="famousLabel">Famous For:</b>
+<span data-lang="famous">Sculptures & festivals</span>
+</div>
+
+<button class="btn" data-lang="book"
+ onclick="location.href='temple-booking.html?temple=meenakshi'">
+Book Darshan
+</button>
+
+<h2 data-lang="view360">🌐 360° View</h2>
+
+<iframe src="https://www.google.com/maps/embed?pb=!4v1699261478222!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ3l2dm1EUFE!2m2!1d9.919504!2d78.119774!3f270!4f10!5f0.78"></iframe>
+
+</div>
+<section class="itinerary">
+  <h2>🧭 Plan Your Trip</h2>
+
+  <form id="itinerary-form">
+    <input type="date" id="date" required>
+    <input type="text" id="activity" placeholder="Activity" required>
+    <textarea id="notes" placeholder="Notes (optional)"></textarea>
+    <button type="submit">Add</button>
+    <button type="button" class="clear" onclick="clearItinerary()">Clear</button>
+  </form>
+
+  <div id="itinerary-list"></div>
+</section>
+
+<footer>
+  © 2026 Timeless Destinations | All Rights Reserved
+</footer>
+
+<script>
+const form = document.getElementById("itinerary-form");
+const list = document.getElementById("itinerary-list");
+
+const dateInput = document.getElementById("date");
+const activityInput = document.getElementById("activity");
+const notesInput = document.getElementById("notes");
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const date = dateInput.value;
+  const activity = activityInput.value;
+  const notes = notesInput.value;
+
+  if(!date || !activity){
+    alert("Please fill required fields");
+    return;
+  }
+
+  const div = document.createElement("div");
+  div.className = "itinerary-item";
+  div.innerHTML = `
+    <strong>${date}</strong><br>
+    ${activity}<br>
+    <small>${notes}</small>
+  `;
+
+  list.appendChild(div);
+  form.reset();
+});
+
+function clearItinerary(){
+  list.innerHTML = "";
+}
+
+<!-- 🌍 LANGUAGE SCRIPT -->
+const translations = {
+ en:{
+  pageTitle:"Meenakshi Temple",
+  title:"Meenakshi Temple",
+  desc:"Meenakshi Temple in Madurai is famous for its colorful gopurams and Dravidian architecture.",
+  locationLabel:"Location:",
+  location:"Madurai, Tamil Nadu",
+  deityLabel:"Deity:",
+  deity:"Goddess Meenakshi & Lord Sundareswarar",
+  darshanLabel:"Darshan:",
+  darshan:"5 AM – 10 PM",
+  famousLabel:"Famous For:",
+  famous:"Sculptures & festivals",
+  book:"Book Darshan",
+  view360:"🌐 360° View"
+ },
+ hi:{
+  pageTitle:"मीनाक्षी मंदिर",
+  title:"मीनाक्षी मंदिर",
+  desc:"मदुरै का मीनाक्षी मंदिर अपने रंगीन गोपुरम और द्रविड़ स्थापत्य के लिए प्रसिद्ध है।",
+  locationLabel:"स्थान:",
+  location:"मदुरै, तमिलनाडु",
+  deityLabel:"देवी:",
+  deity:"देवी मीनाक्षी और भगवान सुंदरेश्वर",
+  darshanLabel:"दर्शन:",
+  darshan:"सुबह 5 बजे – रात 10 बजे",
+  famousLabel:"प्रसिद्ध:",
+  famous:"मूर्तियाँ और त्यौहार",
+  book:"दर्शन बुक करें",
+  view360:"🌐 360° दृश्य"
+ },
+ te:{
+  pageTitle:"మీనాక్షి ఆలయం",
+  title:"మీనాక్షి ఆలయం",
+  desc:"మదురైలోని మీనాక్షి ఆలయం రంగురంగుల గోపురాలు మరియు ద్రావిడ శైలికి ప్రసిద్ధి.",
+  locationLabel:"ప్రాంతం:",
+  location:"మదురై, తమిళనాడు",
+  deityLabel:"దేవతలు:",
+  deity:"దేవి మీనాక్షి & శ్రీ సుందరేశ్వరుడు",
+  darshanLabel:"దర్శనం:",
+  darshan:"ఉదయం 5 – రాత్రి 10",
+  famousLabel:"ప్రసిద్ధి:",
+  famous:"శిల్పాలు & పండుగలు",
+  book:"దర్శనం బుక్ చేయండి",
+  view360:"🌐 360° వీక్షణ"
+ }
+};
+
+const selector = document.getElementById("language-select");
+
+function applyLang(lang){
+ document.querySelectorAll("[data-lang]").forEach(el=>{
+   el.innerText = translations[lang][el.dataset.lang];
+ });
+ document.title = translations[lang].pageTitle;
+}
+
+selector.addEventListener("change",()=>{
+ localStorage.setItem("language",selector.value);
+ applyLang(selector.value);
+});
+
+const savedLang = localStorage.getItem("language") || "en";
+selector.value = savedLang;
+applyLang(savedLang);
+</script>
+
+</body>
+</html>

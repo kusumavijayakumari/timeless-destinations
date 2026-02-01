@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | Timeless Destinations</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
+
+body{
+  background:linear-gradient(to right,#004d40,#009688);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* CONTAINER */
+.contact-container{
+  background:white;
+  width:90%;
+  max-width:900px;
+  border-radius:15px;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  box-shadow:0 15px 40px rgba(0,0,0,.3);
+}
+
+/* LEFT INFO */
+.contact-info{
+  background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee")
+  no-repeat center/cover;
+  color:white;
+  padding:40px;
+  position:relative;
+}
+
+.contact-info::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.6);
+}
+
+.contact-info div{
+  position:relative;
+  z-index:2;
+}
+
+.contact-info h2{
+  margin-bottom:15px;
+  color:#ffeb3b;
+}
+
+.contact-info p{
+  line-height:1.6;
+  margin-bottom:10px;
+}
+
+/* FORM */
+.contact-form{
+  padding:40px;
+}
+
+.contact-form h2{
+  margin-bottom:20px;
+  color:#004d40;
+}
+
+.form-group{
+  margin-bottom:15px;
+}
+
+.form-group input,
+.form-group textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  outline:none;
+}
+
+.form-group textarea{
+  resize:none;
+  height:120px;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  background:#004d40;
+  color:white;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+button:hover{
+  background:#00695c;
+}
+
+#success{
+  margin-top:15px;
+  color:green;
+  font-weight:600;
+  display:none;
+}
+
+.lang-select{
+  margin-top:20px;
+  padding:8px;
+  width:100%;
+}
+
+@media(max-width:768px){
+  .contact-container{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="contact-container">
+
+  <!-- LEFT INFO -->
+  <div class="contact-info">
+    <div>
+      <h2 data-lang="contactTitle">Contact Timeless Destinations</h2>
+      <p data-lang="line1">📍 Explore hidden and famous travel destinations across India</p>
+      <p>📧 Email: support@timelessdestinations.com</p>
+      <p>📞 Phone: +91 98765 43210</p>
+      <p data-lang="reply">💬 We usually reply within 24 hours</p>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="contact-form">
+    <h2 data-lang="send">Send Us a Message</h2>
+
+    <select class="lang-select" id="language-select">
+      <option value="en">English</option>
+      <option value="hi">हिन्दी</option>
+      <option value="te">తెలుగు</option>
+    </select>
+
+    <form id="contactForm">
+      <div class="form-group">
+        <input type="text" id="name" data-lang-placeholder="name" placeholder="Your Name" required>
+      </div>
+
+      <div class="form-group">
+        <input type="email" id="email" data-lang-placeholder="email" placeholder="Your Email" required>
+      </div>
+
+      <div class="form-group">
+        <input type="text" id="subject" data-lang-placeholder="subject" placeholder="Subject">
+      </div>
+
+      <div class="form-group">
+        <textarea id="message" data-lang-placeholder="message" placeholder="Your Message" required></textarea>
+      </div>
+
+      <button type="submit" data-lang="btn">Send Message</button>
+    </form>
+
+    <div id="success" data-lang="success">✅ Message sent successfully!</div>
+  </div>
+
+</div>
+
+<script>
+const translations = {
+  en:{
+    contactTitle:"Contact Timeless Destinations",
+    line1:"📍 Explore hidden and famous travel destinations across India",
+    reply:"💬 We usually reply within 24 hours",
+    send:"Send Us a Message",
+    btn:"Send Message",
+    success:"✅ Message sent successfully!",
+    name:"Your Name",
+    email:"Your Email",
+    subject:"Subject",
+    message:"Your Message"
+  },
+  hi:{
+    contactTitle:"Timeless Destinations से संपर्क करें",
+    line1:"📍 भारत के प्रसिद्ध और छिपे हुए पर्यटन स्थलों की खोज करें",
+    reply:"💬 हम 24 घंटों के भीतर जवाब देते हैं",
+    send:"हमें संदेश भेजें",
+    btn:"संदेश भेजें",
+    success:"✅ संदेश सफलतापूर्वक भेजा गया!",
+    name:"आपका नाम",
+    email:"आपका ईमेल",
+    subject:"विषय",
+    message:"आपका संदेश"
+  },
+  te:{
+    contactTitle:"Timeless Destinations ను సంప్రదించండి",
+    line1:"📍 భారతదేశంలోని ప్రసిద్ధ & దాగి ఉన్న పర్యాటక ప్రదేశాలు",
+    reply:"💬 మేము సాధారణంగా 24 గంటల్లో స్పందిస్తాము",
+    send:"మాకు సందేశం పంపండి",
+    btn:"సందేశం పంపండి",
+    success:"✅ సందేశం విజయవంతంగా పంపబడింది!",
+    name:"మీ పేరు",
+    email:"మీ ఇమెయిల్",
+    subject:"విషయం",
+    message:"మీ సందేశం"
+  }
+};
+
+const selector = document.getElementById("language-select");
+
+selector.addEventListener("change",()=>{
+  const lang = selector.value;
+  localStorage.setItem("language",lang);
+  applyLang(lang);
+});
+
+function applyLang(lang){
+  document.querySelectorAll("[data-lang]").forEach(el=>{
+    el.innerText = translations[lang][el.dataset.lang];
+  });
+
+  document.querySelectorAll("[data-lang-placeholder]").forEach(el=>{
+    el.placeholder = translations[lang][el.dataset.langPlaceholder];
+  });
+}
+
+const saved = localStorage.getItem("language") || "en";
+selector.value = saved;
+applyLang(saved);
+
+/* FORM SUBMIT */
+const form = document.getElementById("contactForm");
+const success = document.getElementById("success");
+
+form.addEventListener("submit", e=>{
+  e.preventDefault();
+  success.style.display="block";
+  setTimeout(()=>success.style.display="none",3000);
+  form.reset();
+});
+</script>
+
+</body>
+</html>

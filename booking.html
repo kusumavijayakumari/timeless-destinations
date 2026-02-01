@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tourism Package Booking</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background: linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);
+    padding:20px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+header{
+    text-align:center;
+    color:white;
+    margin-bottom:25px;
+}
+
+header h1{
+    font-size:2.5rem;
+    margin-bottom:10px;
+}
+
+.form-box{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.section{
+    margin-bottom:25px;
+}
+
+.section h3{
+    color:#1a2a6c;
+    margin-bottom:12px;
+}
+
+.row{
+    display:flex;
+    gap:15px;
+}
+
+.group{
+    flex:1;
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+textarea{
+    resize:none;
+}
+
+.package-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+}
+
+.package{
+    border:2px solid #ddd;
+    padding:15px;
+    border-radius:8px;
+    cursor:pointer;
+    text-align:center;
+}
+
+.package.selected{
+    border-color:#1a2a6c;
+    background:#eef1ff;
+}
+
+.package h4{
+    color:#1a2a6c;
+}
+
+/* PAYMENT */
+.payment-methods{
+    display:flex;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.payment{
+    flex:1;
+    border:2px solid #ddd;
+    padding:12px;
+    border-radius:8px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.payment.selected{
+    border-color:#1a2a6c;
+    background:#eef1ff;
+}
+
+.payment i{
+    font-size:2rem;
+    color:#1a2a6c;
+    margin-bottom:5px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    background:linear-gradient(to right,#1a2a6c,#b21f1f);
+    color:white;
+    font-size:1.1rem;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:0.9;
+}
+
+footer{
+    margin-top:25px;
+    text-align:center;
+    color:white;
+}
+
+@media(max-width:700px){
+    .row{
+        flex-direction:column;
+    }
+    .payment-methods{
+        flex-direction:column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <h1>Tourism Package Booking</h1>
+    <p>Book your dream vacation easily</p>
+</header>
+
+<div class="form-box">
+
+<form onsubmit="submitForm(event)">
+
+<!-- PERSONAL INFO -->
+<div class="section">
+<h3><i class="fa fa-user"></i> Personal Information</h3>
+
+<div class="row">
+<div class="group">
+<label>First Name</label>
+<input type="text" required>
+</div>
+
+<div class="group">
+<label>Last Name</label>
+<input type="text" required>
+</div>
+</div>
+
+<div class="row">
+<div class="group">
+<label>Email</label>
+<input type="email" required>
+</div>
+
+<div class="group">
+<label>Phone</label>
+<input type="tel" required>
+</div>
+</div>
+</div>
+
+<!-- TRAVEL DETAILS -->
+<div class="section">
+<h3><i class="fa fa-suitcase"></i> Travel Details</h3>
+
+<label>Select Package</label>
+<div class="package-grid">
+<div class="package selected" onclick="selectPackage(this,'Bali')">
+<h4>Bali Paradise</h4>
+<p>7 Days / 6 Nights</p>
+</div>
+
+<div class="package" onclick="selectPackage(this,'Europe')">
+<h4>Europe Explorer</h4>
+<p>14 Days / 13 Nights</p>
+</div>
+
+<div class="package" onclick="selectPackage(this,'Thailand')">
+<h4>Thailand Adventure</h4>
+<p>10 Days / 9 Nights</p>
+</div>
+
+<div class="package" onclick="selectPackage(this,'Maldives')">
+<h4>Maldives Retreat</h4>
+<p>5 Days / 4 Nights</p>
+</div>
+</div>
+
+<input type="hidden" id="package" value="Bali">
+
+<div class="row">
+<div class="group">
+<label>Departure Date</label>
+<input type="date" required>
+</div>
+
+<div class="group">
+<label>Return Date</label>
+<input type="date" required>
+</div>
+</div>
+
+<div class="group">
+<label>Number of Travelers</label>
+<select>
+<option>1</option>
+<option selected>2</option>
+<option>3</option>
+<option>4</option>
+<option>5+</option>
+</select>
+</div>
+</div>
+
+<!-- PAYMENT SECTION -->
+<div class="section">
+<h3><i class="fa fa-credit-card"></i> Payment Details</h3>
+
+<label>Payment Method</label>
+<div class="payment-methods">
+<div class="payment selected" onclick="selectPayment(this)">
+<i class="fab fa-cc-visa"></i>
+<p>Credit Card</p>
+</div>
+
+<div class="payment" onclick="selectPayment(this)">
+<i class="fab fa-paypal"></i>
+<p>PayPal</p>
+</div>
+
+<div class="payment" onclick="selectPayment(this)">
+<i class="fa fa-university"></i>
+<p>Bank Transfer</p>
+</div>
+</div>
+
+<div class="row">
+<div class="group">
+<label>Card Number</label>
+<input type="text" placeholder="1234 5678 9012 3456" required>
+</div>
+</div>
+
+<div class="row">
+<div class="group">
+<label>Expiry Date</label>
+<input type="text" placeholder="MM/YY" required>
+</div>
+
+<div class="group">
+<label>CVV</label>
+<input type="password" placeholder="123" required>
+</div>
+</div>
+
+<div class="group">
+<label>Name on Card</label>
+<input type="text" required>
+</div>
+</div>
+
+<!-- SPECIAL -->
+<div class="section">
+<h3><i class="fa fa-star"></i> Special Requests</h3>
+<textarea rows="3" placeholder="Any special requests..."></textarea>
+</div>
+
+<button type="submit">Complete Booking</button>
+
+</form>
+</div>
+
+<footer>
+<p>© 2026 Wanderlust Travel Agency</p>
+<p>Email: support@wanderlust.com | Phone: 1800-TRAVEL</p>
+</footer>
+
+</div>
+
+<script>
+function selectPackage(el,name){
+    document.querySelectorAll('.package').forEach(p=>p.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('package').value = name;
+}
+
+function selectPayment(el){
+    document.querySelectorAll('.payment').forEach(p=>p.classList.remove('selected'));
+    el.classList.add('selected');
+}
+
+function submitForm(e){
+    e.preventDefault();
+    alert("Payment Successful!\nBooking Confirmed.\nOur team will contact you soon.");
+}
+</script>
+
+</body>
+</html>

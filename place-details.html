@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Place Details</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:#f5f7fb;
+}
+h2{text-align:center;margin:40px 0;}
+.container{width:90%;margin:auto;}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+.card{
+  background:#fff;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,.1);
+}
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+.card-body{padding:20px;}
+.card-body h3{margin-bottom:10px;}
+.card-body p{margin-bottom:12px;}
+.btn{
+  padding:10px 18px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:600;
+}
+.btn-view{
+  background:#3498db;
+  color:#fff;
+}
+.btn-view:hover{background:#2c80c9;}
+.btn-fav{
+  border:1px solid #ddd;
+  background:white;
+  margin-left:10px;
+}
+.btn-fav.added{
+  background:#3498db;
+  color:white;
+  border:none;
+}
+</style>
+</head>
+
+<body>
+
+<h2 id="title">Packages</h2>
+
+<div class="container">
+  <div class="grid" id="placeList"></div>
+</div>
+
+<script>
+// -------------------- DATA (ALL IMAGES FIXED) --------------------
+const data = {
+  beach: [
+    {
+      name:"Baga Beach",
+      img:"https://images.unsplash.com/photo-1608889175661-3bfa389c1f80",
+      desc:"Baga Beach in Goa is famous for water sports, nightlife, and beach parties."
+    },
+    {
+      name:"Palolem Beach",
+      img:"https://images.unsplash.com/photo-1602305842718-64a9f77447da",
+      desc:"Palolem Beach is a calm and scenic crescent-shaped beach in South Goa."
+    },
+    {
+      name:"Kovalam Beach",
+      img:"https://images.unsplash.com/photo-1587202372775-3f42b31e8280",
+      desc:"Kovalam Beach in Kerala is known for its lighthouse and serene waters."
+    },
+    {
+      name:"Juhu Beach",
+      img:"https://images.unsplash.com/photo-1504724180733-05798da3b0b7",
+      desc:"Juhu Beach in Mumbai is popular for sunsets and street food."
+    },
+    {
+      name:"Puri Beach",
+      img:"https://images.unsplash.com/photo-1549880338-65ddcdfd017b",
+      desc:"Puri Beach in Odisha is famous for golden sands and Jagannath Temple nearby."
+    }
+  ],
+
+  mountain: [
+    {
+      name:"Manali",
+      img:"https://images.unsplash.com/photo-1603076652600-d06e5c6b33fc",
+      desc:"Manali is a beautiful hill station famous for snow and adventure sports."
+    },
+    {
+      name:"Ooty",
+      img:"https://images.unsplash.com/photo-1586075010923-2dd4570fb338",
+      desc:"Ooty is known for tea plantations and pleasant weather."
+    },
+    {
+      name:"Coorg",
+      img:"https://images.unsplash.com/photo-1600788918955-bb0a0dfed3a0",
+      desc:"Coorg is called the Scotland of India, known for coffee estates."
+    }
+  ],
+
+  waterfall: [
+    {
+      name:"Jog Falls",
+      img:"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
+      desc:"Jog Falls is one of the highest waterfalls in India, located in Karnataka."
+    },
+    {
+      name:"Dudhsagar Falls",
+      img:"https://images.unsplash.com/photo-1565781221141-56f0b4a70a6a",
+      desc:"Dudhsagar Falls is a majestic four-tiered waterfall on the Goa border."
+    },
+    {
+      name:"Athirapally Falls",
+      img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+      desc:"Athirapally Falls in Kerala is often called the Niagara of India."
+    }
+  ],
+  temple: [
+    {
+      name:"Jagannath Temple",
+      img:"https://images.unsplash.com/photo-1621860291614-3f1c2f9e6f0d",
+      desc:"Jagannath Temple in Puri is one of the Char Dham pilgrimage sites.",
+      page:"jagannath.html"
+    },
+    {
+      name:"Tirupati Balaji",
+      img:"https://images.unsplash.com/photo-1617196034738-bfe32b1a0d45",
+      desc:"Tirupati is one of the richest and most visited temples in the world.",
+      page:"tirupati.html"
+    },
+    {
+      name:"Meenakshi Temple",
+      img:"https://images.unsplash.com/photo-1587300003388-59208cc962cb",
+      desc:"Meenakshi Temple is a historic Hindu temple in Madurai.",
+      page:"meenakshi.html"
+    }
+  ]
+};
+
+
+
+// -------------------- PAGE TITLE --------------------
+const params = new URLSearchParams(window.location.search);
+const type = params.get("place") || "beach";
+document.getElementById("title").innerText =
+  type.charAt(0).toUpperCase() + type.slice(1) + " Packages";
+
+// -------------------- FAVORITES --------------------
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+const list = document.getElementById("placeList");
+
+// -------------------- PLACE CARDS --------------------
+data[type].forEach(p=>{
+  const isFav = favorites.includes(p.name);
+
+  list.innerHTML += `
+    <div class="card">
+      <img src="${p.img}" alt="${p.name}">
+      <div class="card-body">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <button class="btn btn-view" onclick="openPlace('${p.name}')">
+          View Details
+        </button>
+        <button class="btn btn-fav ${isFav ? 'added' : ''}"
+          onclick="toggleFavorite('${p.name}', this)">
+          ${isFav ? '♥ Added' : '♡ Add to Favorites'}
+        </button>
+      </div>
+    </div>
+  `;
+});
+
+// -------------------- OPEN DETAILS PAGE --------------------
+function openPlace(placeName){
+  const pages = {
+    "Baga Beach":"bagabeach.html",
+    "Palolem Beach":"palolembeach.html",
+    "Kovalam Beach":"kovalambeach.html",
+    "Juhu Beach":"juhubeach.html",
+    "Puri Beach":"puribeach.html",
+
+    "Manali":"manali.html",
+    "Ooty":"ooty.html",
+    "Coorg":"coorg.html",
+
+    "Jog Falls":"jogfalls.html",
+    "Dudhsagar Falls":"dudhsagarfalls.html",
+    "Athirapally Falls":"athirapallyfalls.html",
+
+    "Jagannath Temple":"jagannadh.html",
+    "Tirupati Balaji":"tirupati.html",
+    "Meenakshi Temple":"meenakshi.html"
+  };
+
+  if(pages[placeName]){
+    window.location.href = pages[placeName];
+  } else {
+    alert("Details page coming soon!");
+  }
+}
+
+
+// -------------------- FAVORITES FUNCTION --------------------
+function toggleFavorite(name, btn){
+  if(favorites.includes(name)){
+    favorites = favorites.filter(f=>f!==name);
+    btn.classList.remove("added");
+    btn.innerText = "♡ Add to Favorites";
+  } else {
+    favorites.push(name);
+    btn.classList.add("added");
+    btn.innerText = "♥ Added";
+  }
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+</script>
+
+</body>
+</html>
